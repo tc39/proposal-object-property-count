@@ -4,60 +4,51 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
 <script src="./spec.js"></script>
 <pre class="metadata">
-title: Object.propertyCount
+title: Object.keysLength, Object.getOwnPropertyNamesLength, Object.getOwnPropertySymbolsLength
 stage: 1
 contributors: Ruben Bridgewater, Jordan Harband
 </pre>
 
-<emu-clause id="sec-demo-clause">
-  <h1>Object.propertyCount ( _target_ [ , _options_ ] )</h1>
-  <p>When the `Object.propertyCount` method is called, the following steps are taken:</p>
+<emu-clause id="sec-object-keyslength">
+  <h1>Object.keysLength ( _target_ )</h1>
+  <p>When the `Object.keysLength` method is called, the following steps are taken:</p>
   <emu-alg>
-    1. If _target_ is not an Object, throw a TypeError exception.
-    1. Let _resolvedOptions_ be ? GetOptionsObject(_options_).
-    1. Let _keyTypes_ be ? Get(_resolvedOptions_, *"keyTypes"*).
-    1. If _keyTypes_ is *undefined*, then
-        1. Set _keyTypes_ to CreateArrayFromList(« *"string"* »).
-    1. Else, perform the following,
-        1. If _keyTypes_ is not an Object, throw a TypeError exception.
-        1. Set _keyTypes_ to ? CreateListFromArrayLike(_keyTypes_, ~all~).
-        1. If _keyTypes_ contains any value other than *"string"*, or *"symbol"*, throw a TypeError exception.
-    1. Let _enumerable_ be ? Get(_resolvedOptions_, *"enumerable"*).
-    1. If _enumerable_ is *undefined*, set _enumerable_ to *true*.
-    1. Else if _enumerable_ is not one of *true*, *false*, or *"all"*, throw a TypeError exception.
+    1. If _target_ is not an Object, throw a *TypeError* exception.
     1. Let _count_ be 0.
-    1. Let _ownKeys_ be _target_.[[OwnPropertyKeys]]().
-    1. For each element _key_ of _ownKeys_, perform the following steps, do
-        1. Let _desc_ be _target_.[[GetOwnProperty]](_key_).
-        1. If _desc_ is not *undefined*, then
-            1. If _enumerable_ is not *"all"*, then
-                1. If _enumerable_ is not equal to _desc_.[[Enumerable]], continue to the next _key_.
-            1. If _key_ is a Symbol and _keyTypes_ contains *"symbol"*, increment _count_ by 1.
-            1. If _key_ is a String and _keyTypes_ contains *"string"*, increment _count_ by 1.
+    1. Let _ownKeys_ be ? _target_.[[OwnPropertyKeys]]().
+    1. For each element _key_ of _ownKeys_, do
+      1. If _key_ is a String, then
+        1. Let _desc_ be ? _target_.[[GetOwnProperty]](_key_).
+        1. If _desc_ is not *undefined* and _desc_.[[Enumerable]] is *true*, then
+          1. Set _count_ to _count_ + 1.
     1. Return 𝔽(_count_).
   </emu-alg>
 </emu-clause>
 
-<!-- Copied from ECMA-402 GetOptionsObject -->
-
-<emu-clause id="sec-getoptionsobject" type="abstract operation">
-  <h1>
-    GetOptionsObject (
-      _options_: an ECMAScript language value,
-    ): either a normal completion containing an Object or a throw completion
-  </h1>
-  <dl class="header">
-    <dt>description</dt>
-    <dd>
-      It returns an Object suitable for use with GetOption, either _options_ itself or a default empty Object.
-      It throws a *TypeError* if _options_ is not *undefined* and not an Object.
-    </dd>
-  </dl>
+<emu-clause id="sec-object-getownpropertynameslength">
+  <h1>Object.getOwnPropertyNamesLength ( _target_ )</h1>
+  <p>When the `Object.getOwnPropertyNamesLength` method is called, the following steps are taken:</p>
   <emu-alg>
-    1. If _options_ is *undefined*, then
-      1. Return OrdinaryObjectCreate(*null*).
-    1. If _options_ is an Object, then
-      1. Return _options_.
-    1. Throw a *TypeError* exception.
+    1. If _target_ is not an Object, throw a *TypeError* exception.
+    1. Let _count_ be 0.
+    1. Let _ownKeys_ be ? _target_.[[OwnPropertyKeys]]().
+    1. For each element _key_ of _ownKeys_, do
+      1. If _key_ is a String, then
+        1. Set _count_ to _count_ + 1.
+    1. Return 𝔽(_count_).
+  </emu-alg>
+</emu-clause>
+
+<emu-clause id="sec-object-getownpropertysymbolslength">
+  <h1>Object.getOwnPropertySymbolsLength ( _target_ )</h1>
+  <p>When the `Object.getOwnPropertySymbolsLength` method is called, the following steps are taken:</p>
+  <emu-alg>
+    1. If _target_ is not an Object, throw a *TypeError* exception.
+    1. Let _count_ be 0.
+    1. Let _ownKeys_ be ? _target_.[[OwnPropertyKeys]]().
+    1. For each element _key_ of _ownKeys_, do
+      1. If _key_ is a Symbol, then
+        1. Set _count_ to _count_ + 1.
+    1. Return 𝔽(_count_).
   </emu-alg>
 </emu-clause>
