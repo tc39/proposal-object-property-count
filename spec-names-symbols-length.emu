@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset="utf8">
+<link rel="stylesheet" href="./spec.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<script src="./spec.js"></script>
+<pre class="metadata">
+title: Object.getOwnPropertyNamesLength, Object.getOwnPropertySymbolsLength
+stage: 1
+contributors: Ruben Bridgewater, Jordan Harband
+</pre>
+
+<emu-clause id="sec-object-getownpropertynameslength">
+  <h1>Object.getOwnPropertyNamesLength ( _target_ )</h1>
+  <p>When the `Object.getOwnPropertyNamesLength` method is called, the following steps are taken:</p>
+  <emu-alg>
+    1. If _target_ is not an Object, throw a *TypeError* exception.
+    1. Let _count_ be 0.
+    1. Let _ownKeys_ be ? _target_.[[OwnPropertyKeys]]().
+    1. For each element _key_ of _ownKeys_, do
+      1. If _key_ is a String, then
+        1. Set _count_ to _count_ + 1.
+    1. Return 𝔽(_count_).
+  </emu-alg>
+</emu-clause>
+
+<emu-clause id="sec-object-getownpropertysymbolslength">
+  <h1>Object.getOwnPropertySymbolsLength ( _target_ )</h1>
+  <p>When the `Object.getOwnPropertySymbolsLength` method is called, the following steps are taken:</p>
+  <emu-alg>
+    1. If _target_ is not an Object, throw a *TypeError* exception.
+    1. Let _count_ be 0.
+    1. Let _ownKeys_ be ? _target_.[[OwnPropertyKeys]]().
+    1. For each element _key_ of _ownKeys_, do
+      1. If _key_ is a Symbol, then
+        1. Set _count_ to _count_ + 1.
+    1. Return 𝔽(_count_).
+  </emu-alg>
+</emu-clause>
+
+

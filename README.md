@@ -16,6 +16,8 @@ This proposal introduces three built-in methods that efficiently obtain the coun
 - `Object.getOwnPropertyNamesLength(target)` — counts all own string-keyed properties, mirroring `Object.getOwnPropertyNames`.
 - `Object.getOwnPropertySymbolsLength(target)` — counts all own symbol-keyed properties, mirroring `Object.getOwnPropertySymbols`.
 
+To make review and advancement straightforward, the specification is split into two independently-advancable documents. One for Object.keysLength, and one for the other two combines.
+
 ## Motivation
 
 Developers frequently rely on patterns like:
@@ -261,7 +263,10 @@ The native implementation should strictly avoid creating intermediate arrays or 
    - For `Object.getOwnPropertySymbolsLength`: if the key is a symbol (enumerable or not), increment `count`.
 4. Return `count`.
 
-See the [spec proposal](./spec.emu) for details.
+See the spec documents for details:
+
+- `Object.keysLength`: [spec-keyslength.emu](./spec-keyslength.emu)
+- `Object.getOwnPropertyNamesLength` and `Object.getOwnPropertySymbolsLength`: [spec-names-symbols-length.emu](./spec-names-symbols-length.emu)
 
 ## Alternatives Considered
 

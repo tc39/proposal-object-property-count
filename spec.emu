@@ -4,51 +4,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
 <script src="./spec.js"></script>
 <pre class="metadata">
-title: Object.keysLength, Object.getOwnPropertyNamesLength, Object.getOwnPropertySymbolsLength
+title: Performant object property counting (index)
 stage: 1
 contributors: Ruben Bridgewater, Jordan Harband
 </pre>
 
-<emu-clause id="sec-object-keyslength">
-  <h1>Object.keysLength ( _target_ )</h1>
-  <p>When the `Object.keysLength` method is called, the following steps are taken:</p>
-  <emu-alg>
-    1. If _target_ is not an Object, throw a *TypeError* exception.
-    1. Let _count_ be 0.
-    1. Let _ownKeys_ be ? _target_.[[OwnPropertyKeys]]().
-    1. For each element _key_ of _ownKeys_, do
-      1. If _key_ is a String, then
-        1. Let _desc_ be ? _target_.[[GetOwnProperty]](_key_).
-        1. If _desc_ is not *undefined* and _desc_.[[Enumerable]] is *true*, then
-          1. Set _count_ to _count_ + 1.
-    1. Return 𝔽(_count_).
-  </emu-alg>
-</emu-clause>
-
-<emu-clause id="sec-object-getownpropertynameslength">
-  <h1>Object.getOwnPropertyNamesLength ( _target_ )</h1>
-  <p>When the `Object.getOwnPropertyNamesLength` method is called, the following steps are taken:</p>
-  <emu-alg>
-    1. If _target_ is not an Object, throw a *TypeError* exception.
-    1. Let _count_ be 0.
-    1. Let _ownKeys_ be ? _target_.[[OwnPropertyKeys]]().
-    1. For each element _key_ of _ownKeys_, do
-      1. If _key_ is a String, then
-        1. Set _count_ to _count_ + 1.
-    1. Return 𝔽(_count_).
-  </emu-alg>
-</emu-clause>
-
-<emu-clause id="sec-object-getownpropertysymbolslength">
-  <h1>Object.getOwnPropertySymbolsLength ( _target_ )</h1>
-  <p>When the `Object.getOwnPropertySymbolsLength` method is called, the following steps are taken:</p>
-  <emu-alg>
-    1. If _target_ is not an Object, throw a *TypeError* exception.
-    1. Let _count_ be 0.
-    1. Let _ownKeys_ be ? _target_.[[OwnPropertyKeys]]().
-    1. For each element _key_ of _ownKeys_, do
-      1. If _key_ is a Symbol, then
-        1. Set _count_ to _count_ + 1.
-    1. Return 𝔽(_count_).
-  </emu-alg>
-</emu-clause>
+<emu-intro id="sec-index-intro">
+  <h1>Overview</h1>
+  <p>This index groups the specification work for performant object property counting methods that avoid intermediate array allocation. Each item is a separate, independently-advancable proposal.</p>
+  <ul>
+    <li><a href="./spec-keyslength.html">Object.keysLength</a> — counts own enumerable string-keyed properties.</li>
+    <li><a href="./spec-names-symbols-length.html">Object.getOwnPropertyNamesLength &amp; Object.getOwnPropertySymbolsLength</a> — counts own string-keyed (all) and own symbol-keyed (all) properties.</li>
+  </ul>
+</emu-intro>
