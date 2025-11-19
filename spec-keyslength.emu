@@ -1,0 +1,28 @@
+<!doctype html>
+<meta charset="utf8">
+<link rel="stylesheet" href="./spec.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<script src="./spec.js"></script>
+<pre class="metadata">
+title: Object.keysLength
+stage: 1
+contributors: Ruben Bridgewater, Jordan Harband
+</pre>
+
+<emu-clause id="sec-object-keyslength">
+  <h1>Object.keysLength ( _target_ )</h1>
+  <p>When the `Object.keysLength` method is called, the following steps are taken:</p>
+  <emu-alg>
+    1. If _target_ is not an Object, throw a *TypeError* exception.
+    1. Let _count_ be 0.
+    1. Let _ownKeys_ be ? _target_.[[OwnPropertyKeys]]().
+    1. For each element _key_ of _ownKeys_, do
+      1. If _key_ is a String, then
+        1. Let _desc_ be ? _target_.[[GetOwnProperty]](_key_).
+        1. If _desc_ is not *undefined* and _desc_.[[Enumerable]] is *true*, then
+          1. Set _count_ to _count_ + 1.
+    1. Return 𝔽(_count_).
+  </emu-alg>
+</emu-clause>
+
+
