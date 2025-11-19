@@ -1,14 +1,13 @@
 <!doctype html>
-<head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta property="og:image" content="https://tc39.es/ecmarkup/ecma-logo.png"><meta property="og:title" content="Object.propertyCount"><meta property="og:description" content="Object.propertyCount ( _target_ [ , _options_ ] )
-  When the `Object.propertyCount` method is called, the following steps are taken:
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta property="og:image" content="https://tc39.es/ecmarkup/ecma-logo.png"><meta property="og:title" content="Performant object property counting (index)"><meta property="og:description" content="Overview
+  This index groups the specification work for performant object property counting methods that avoid intermediate array allocation. Each item is a separate, independently-advancable proposal.
   
-    1. If _target_ is not an Object, throw a TypeError exception.
-    1. Let _resolvedOptions_ be ? GetOptionsObject(_options_).
-    1. Let _keyTypes_ be ? Get(_">
+    Object.keysLength — counts own enumerable string-keyed properties.
+    Object.getOwnProp">
 <link rel="stylesheet" href="./spec.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
 <script src="./spec.js"></script>
-<title>Object.propertyCount</title><script>'use strict';
+<title>Performant object property counting (index)</title><script>'use strict';
 let sdoBox = {
   init() {
     this.$alternativeId = null;
@@ -871,7 +870,7 @@ let referencePane = {
     this.$pane.appendChild(this.$tableContainer);
 
     if (menu != null) {
-      menu.$specContainer.after(this.$container);
+      menu.$specContainer.appendChild(this.$container);
     }
   },
 
@@ -1203,9 +1202,6 @@ function doShortcut(e) {
     document.documentElement.classList.toggle('show-ao-annotations');
   } else if (e.key === '?') {
     document.getElementById('shortcuts-help').classList.toggle('active');
-  } else if (e.key === ';') {
-    let el = document.getElementById('bd75b99add5f');
-    if (el != null) el.remove();
   }
 }
 
@@ -1623,7 +1619,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let sdoMap = JSON.parse(`{}`);
-let biblio = JSON.parse(`{"refsByClause":{"sec-demo-clause":["_ref_0"]},"entries":[{"type":"clause","id":"sec-demo-clause","title":"Object.propertyCount ( target [ , options ] )","titleHTML":"Object.propertyCount ( <var>target</var> [ , <var>options</var> ] )","number":"1"},{"type":"op","aoid":"GetOptionsObject","refId":"sec-getoptionsobject"},{"type":"clause","id":"sec-getoptionsobject","title":"GetOptionsObject ( options )","titleHTML":"GetOptionsObject ( <var>options</var> )","number":"2","referencingIds":["_ref_0"]},{"type":"clause","id":"sec-copyright-and-software-license","title":"Copyright & Software License","titleHTML":"Copyright &amp; Software License","number":"A"}]}`);
+let biblio = JSON.parse(`{"refsByClause":{},"entries":[{"type":"clause","id":"sec-index-intro","titleHTML":"Overview","number":""},{"type":"clause","id":"sec-copyright-and-software-license","title":"Copyright & Software License","titleHTML":"Copyright &amp; Software License","number":"A"}]}`);
 ;let usesMultipage = false</script><style>:root {
   --foreground-color: #111;
   --background-color: #fff;
@@ -2253,7 +2249,7 @@ emu-oneof {
 }
 
 emu-nt {
-  display: inline-block;
+  display: inline;
   font-style: italic;
   white-space: nowrap;
   text-indent: 0;
@@ -2593,7 +2589,7 @@ table.real-table th {
 }
 
 emu-table td {
-  background: transparent;
+  background: var(--background-color);
 }
 
 td[colspan]:not([colspan="1"]), th[colspan]:not([colspan="1"]) {
@@ -2700,7 +2696,7 @@ tr.del > td {
   height: 100vh;
   max-width: 500px;
   box-sizing: border-box;
-  background: var(--control-background-color);
+  background-color: var(--control-background-color);
   overflow: hidden;
   transition: opacity 0.1s linear;
   padding: 0 5px;
@@ -3141,7 +3137,7 @@ li.menu-search-result-term::before {
 
 .toolbox::after {
   border-color: var(--toolbox-tail-background-outside-color);
-  border-top-color: var(--control-border-color);
+  border-top-color: var(--control-background-color);
   border-width: 10px;
   margin-left: -10px;
 }
@@ -3158,7 +3154,7 @@ li.menu-search-result-term::before {
   left: 0;
   right: 0;
   display: none;
-  background: var(--control-background-color);
+  background-color: var(--control-background-color);
   z-index: 1;
 }
 
@@ -3199,17 +3195,6 @@ li.menu-search-result-term::before {
   padding-right: 5px;
 }
 
-emu-normative-optional {
-  display: block;
-}
-
-emu-normative-optional::before {
-  display: block;
-  color: var(--attributes-tag-foreground-color);
-  content: "NORMATIVE OPTIONAL";
-}
-
-emu-normative-optional,
 [normative-optional],
 [deprecated],
 [legacy] {
@@ -3242,7 +3227,7 @@ emu-normative-optional,
   outline: solid 10000px var(--control-dialog-fade-color);
   border-radius: 5px;
   border-width: 1px 1px 0 1px;
-  background: var(--control-background-color);
+  background-color: var(--control-background-color);
   display: none;
 }
 
@@ -3548,18 +3533,6 @@ emu-alg ol li:last-child {
   break-after: initial; /* it's okay to break after the last item in a list, even if it's also the first item in the list */
 }
 
-emu-normative-optional {
-  break-inside: avoid;
-}
-
-emu-normative-optional emu-clause[id] {
-  margin-top: 0;
-}
-
-emu-normative-optional emu-alg > ol {
-  margin-bottom: 0;
-}
-
 emu-note {
   gap: initial;
   justify-content: space-between;
@@ -3714,7 +3687,7 @@ emu-table th {
 
 caption, table > figcaption {
   caption-side: top;
-  color: #555555;
+  color: #000;
   font-weight: bold;
   margin-bottom: 1rem;
   text-align: center;
@@ -3729,6 +3702,7 @@ table:not(:has(tr:nth-of-type(5))) {
   break-inside: avoid-page;
 }
 
+/* This inheritance looks weird—it's due to how Prince manages continuity in tables across pages */
 table > figcaption {
   display: table-caption;
   -prince-caption-page: following;
@@ -3946,6 +3920,26 @@ p.ECMAaddress {
   margin: 0;
 }
 
+#sec-terms-and-definitions dfn {
+  font-style: normal;
+}
+
+#sec-terms-and-definitions h1 .secnum {
+  display: block;
+}
+
+#sec-terms-and-definitions > h1 > .secnum {
+  display: inline;
+}
+
+#sec-terms-and-definitions h1 + p {
+  margin-top: 0;
+}
+
+p.adoption-info {
+  float: bottom;
+}
+
 }</style><style>
     @media print {
       @page :left {
@@ -3991,24 +3985,17 @@ p.ECMAaddress {
 </ul></div><div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
       <title>Menu</title>
       <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
-    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-demo-clause" title="Object.propertyCount ( target [ , options ] )"><span class="secnum">1</span> Object.propertyCount ( <var>target</var> [ , <var>options</var> ] )</a></li><li><span class="item-toggle-none"></span><a href="#sec-getoptionsobject" title="GetOptionsObject ( options )"><span class="secnum">2</span> GetOptionsObject ( <var>options</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License">Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version">Stage 1 Draft / July 31, 2025</h1><h1 class="title">Object.propertyCount</h1>
+    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-index-intro" title="Overview">Overview</a></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License">Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version">Stage 1 Draft / November 19, 2025</h1><h1 class="title">Performant object property counting (index)</h1>
 
-<emu-clause id="sec-demo-clause">
-  <h1><span class="secnum">1</span> Object.propertyCount ( <var>target</var> [ , <var>options</var> ] )</h1>
-  <p>When the <code>Object.propertyCount</code> method is called, the following steps are taken:</p>
-  <emu-alg><ol><li>If <var>target</var> <emu-xref href="#sec-object-type"><a href="https://tc39.es/ecma262/#sec-object-type">is not an Object</a></emu-xref>, throw a TypeError exception.</li><li>Let <var>resolvedOptions</var> be ?&nbsp;<emu-xref aoid="GetOptionsObject" id="_ref_0"><a href="#sec-getoptionsobject">GetOptionsObject</a></emu-xref>(<var>options</var>).</li><li>Let <var>keyTypes</var> be ?&nbsp;<emu-xref aoid="Get"><a href="https://tc39.es/ecma262/#sec-get-o-p">Get</a></emu-xref>(<var>resolvedOptions</var>, <emu-val>"keyTypes"</emu-val>).</li><li>If <var>keyTypes</var> is <emu-val>undefined</emu-val>, then<ol><li>Set <var>keyTypes</var> to <emu-xref aoid="CreateArrayFromList"><a href="https://tc39.es/ecma262/#sec-createarrayfromlist">CreateArrayFromList</a></emu-xref>(« <emu-val>"string"</emu-val>&nbsp;»).</li></ol></li><li>Else, perform the following,<ol><li>If <var>keyTypes</var> <emu-xref href="#sec-object-type"><a href="https://tc39.es/ecma262/#sec-object-type">is not an Object</a></emu-xref>, throw a TypeError exception.</li><li>Set <var>keyTypes</var> to ?&nbsp;<emu-xref aoid="CreateListFromArrayLike"><a href="https://tc39.es/ecma262/#sec-createlistfromarraylike">CreateListFromArrayLike</a></emu-xref>(<var>keyTypes</var>, <emu-const>all</emu-const>).</li><li>If <var>keyTypes</var> contains any value other than <emu-val>"string"</emu-val>, or <emu-val>"symbol"</emu-val>, throw a TypeError exception.</li></ol></li><li>Let <var>enumerable</var> be ?&nbsp;<emu-xref aoid="Get"><a href="https://tc39.es/ecma262/#sec-get-o-p">Get</a></emu-xref>(<var>resolvedOptions</var>, <emu-val>"enumerable"</emu-val>).</li><li>If <var>enumerable</var> is <emu-val>undefined</emu-val>, set <var>enumerable</var> to <emu-val>true</emu-val>.</li><li>Else if <var>enumerable</var> is not one of <emu-val>true</emu-val>, <emu-val>false</emu-val>, or <emu-val>"all"</emu-val>, throw a TypeError exception.</li><li>Let <var>count</var> be 0.</li><li>Let <var>ownKeys</var> be <var>target</var>.<var class="field">[[OwnPropertyKeys]]</var>().</li><li>For each element <var>key</var> of <var>ownKeys</var>, perform the following steps, do<ol><li>Let <var>desc</var> be <var>target</var>.<var class="field">[[GetOwnProperty]]</var>(<var>key</var>).</li><li>If <var>desc</var> is not <emu-val>undefined</emu-val>, then<ol><li>If <var>enumerable</var> is not <emu-val>"all"</emu-val>, then<ol><li>If <var>enumerable</var> is not equal to <var>desc</var>.<var class="field">[[Enumerable]]</var>, continue to the next <var>key</var>.</li></ol></li><li>If <var>key</var> <emu-xref href="#sec-ecmascript-language-types-symbol-type"><a href="https://tc39.es/ecma262/#sec-ecmascript-language-types-symbol-type">is a Symbol</a></emu-xref> and <var>keyTypes</var> contains <emu-val>"symbol"</emu-val>, increment <var>count</var> by 1.</li><li>If <var>key</var> <emu-xref href="#sec-ecmascript-language-types-string-type"><a href="https://tc39.es/ecma262/#sec-ecmascript-language-types-string-type">is a String</a></emu-xref> and <var>keyTypes</var> contains <emu-val>"string"</emu-val>, increment <var>count</var> by 1.</li></ol></li></ol></li><li>Return <emu-xref aoid="𝔽"><a href="https://tc39.es/ecma262/#𝔽">𝔽</a></emu-xref>(<var>count</var>).</li></ol></emu-alg>
-</emu-clause>
-
-<!-- Copied from ECMA-402 GetOptionsObject -->
-
-<emu-clause id="sec-getoptionsobject" type="abstract operation" aoid="GetOptionsObject">
-  <h1><span class="secnum">2</span> GetOptionsObject ( <var>options</var> )</h1>
-  <p>The abstract operation GetOptionsObject takes argument <var>options</var> (an <emu-xref href="#sec-ecmascript-language-types"><a href="https://tc39.es/ecma262/#sec-ecmascript-language-types">ECMAScript language value</a></emu-xref>) and returns either a <emu-xref href="#sec-completion-record-specification-type"><a href="https://tc39.es/ecma262/#sec-completion-record-specification-type">normal completion containing</a></emu-xref> an Object or a <emu-xref href="#sec-completion-record-specification-type"><a href="https://tc39.es/ecma262/#sec-completion-record-specification-type">throw completion</a></emu-xref>. 
-      It returns an Object suitable for use with GetOption, either <var>options</var> itself or a default empty Object.
-      It throws a <emu-val>TypeError</emu-val> if <var>options</var> is not <emu-val>undefined</emu-val> and not an Object.
-     It performs the following steps when called:</p>
-  <emu-alg><ol><li>If <var>options</var> is <emu-val>undefined</emu-val>, then<ol><li>Return <emu-xref aoid="OrdinaryObjectCreate"><a href="https://tc39.es/ecma262/#sec-ordinaryobjectcreate">OrdinaryObjectCreate</a></emu-xref>(<emu-val>null</emu-val>).</li></ol></li><li>If <var>options</var> <emu-xref href="#sec-object-type"><a href="https://tc39.es/ecma262/#sec-object-type">is an Object</a></emu-xref>, then<ol><li>Return <var>options</var>.</li></ol></li><li>Throw a <emu-val>TypeError</emu-val> exception.</li></ol></emu-alg>
-</emu-clause><emu-annex id="sec-copyright-and-software-license" back-matter="">
+<emu-intro id="sec-index-intro">
+  <h1>Overview</h1>
+  <p>This index groups the specification work for performant object property counting methods that avoid intermediate array allocation. Each item is a separate, independently-advancable proposal.</p>
+  <ul>
+    <li><a href="./spec-keyslength.html">Object.keysLength</a> — counts own enumerable string-keyed properties.</li>
+    <li><a href="./spec-names-symbols-length.html">Object.getOwnPropertyNamesLength &amp; Object.getOwnPropertySymbolsLength</a> — counts own string-keyed (all) and own symbol-keyed (all) properties.</li>
+  </ul>
+</emu-intro>
+<emu-annex id="sec-copyright-and-software-license" back-matter="">
         <h1>Copyright &amp; Software License</h1>
         
         <div class="copyright-notice" id="copyright-notice"><h2>Copyright Notice</h2>
@@ -4027,5 +4014,4 @@ p.ECMAaddress {
 
 <p>THIS SOFTWARE IS PROVIDED BY THE ECMA INTERNATIONAL "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ECMA INTERNATIONAL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 
-      </emu-annex>
-</div></body>
+      </emu-annex></div></body>
